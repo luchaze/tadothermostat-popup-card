@@ -160,21 +160,17 @@ export class TadoPopupCard extends LitElement implements LovelaceCard {
                     </div>
 
                     <div id="track" class="track" style="height: ${track_height};"></div>
-                    ${this.temp_selection
-                      ? html`
-                          <input
-                            id="tempvaluerange"
-                            class="tempvaluerange"
-                            type="range"
-                            min="${min_temp - 1}"
-                            max="${max_temp}"
-                            step="1"
-                            style="width: 444px; height: 300px; transform-origin: 222px 222px;"
-                            @change="${(e: MouseEvent | null | undefined): void => this._change_track(e)}"
-                            @input="${(e: MouseEvent | null | undefined): void => this._change_track(e)}"
-                          />
-                        `
-                      : ``}
+                    <input
+                      id="tempvaluerange"
+                      class="tempvaluerange"
+                      type="range"
+                      min="${min_temp - 1}"
+                      max="${max_temp}"
+                      step="1"
+                      style="width: 444px; height: 300px; transform-origin: 222px 222px; opacity: 0; z-index: 10;" 
+                      @change="${(e: any): void => this._change_track(e)}"
+                      @input="${(e: any): void => this._change_track(e)}"
+                    />
                   </div>
                   <div class="thermostat_part_bottom tempoverview">
                     <div class="heatreq">
