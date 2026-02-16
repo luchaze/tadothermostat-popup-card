@@ -11,14 +11,15 @@ on:
 jobs:
   build:
     name: Test build
-    runs-on: ubuntu-latest
+    # We gebruiken Ubuntu 20.04 omdat die beter werkt met oudere Node versies
+    runs-on: ubuntu-20.04 
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4 # Geüpdatet naar v4
 
       - name: Setup Node.js
-        uses: actions/setup-node@v2
+        uses: actions/setup-node@v4 # Geüpdatet naar v4
         with:
-          node-version: '12.x' # De 'magische' versie voor oude kaarten
+          node-version: '12'
 
       - name: Build
         run: |
@@ -26,7 +27,7 @@ jobs:
           npm run build
 
       - name: Upload result
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4 # NU OP v4 (verplicht)
         with:
           name: tado-card-js
-          path: dist/tadothermostat-popup-card.js # Controleer of dit pad klopt in je repo
+          path: dist/tadothermostat-popup-card.js
