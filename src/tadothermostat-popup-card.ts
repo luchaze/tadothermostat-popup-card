@@ -129,18 +129,8 @@ export class TadoPopupCard extends LitElement implements LovelaceCard {
                     </div>
                   </div>
                   <div class="btn__holder selection">
-                    <div
-                      class="btn__back"
-                      @click="${(e: MouseEvent | null | undefined): void => this._thermostat_mouseclick(e)}"
-                    >
-                      ${back_btn}
-                    </div>
-                    <div id="target_temp_track" class="text_temperature">${thermostat__body}</div>
-                    <div
-                      class="btn__confirm"
-                      @click="${(e: MouseEvent | null | undefined): void => this._thermostat_mouseclick(e)}"
-                    >
-                      ${confirm_btn}
+                    <div id="target_temp_track" class="text_temperature" style="width: 100%; text-align: center;">
+                      ${thermostat__body}
                     </div>
                   </div>
                 </div>
