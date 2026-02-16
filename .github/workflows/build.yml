@@ -13,8 +13,20 @@ jobs:
     name: Test build
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v1
+      - uses: actions/checkout@v2
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '12.x' # De 'magische' versie voor oude kaarten
+
       - name: Build
         run: |
           npm install
           npm run build
+
+      - name: Upload result
+        uses: actions/upload-artifact@v3
+        with:
+          name: tado-card-js
+          path: dist/tadothermostat-popup-card.js # Controleer of dit pad klopt in je repo
