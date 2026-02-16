@@ -342,26 +342,28 @@ export class TadoPopupCard extends LitElement implements LovelaceCard {
   }
 
   _change_track(e): void {
-    /**
-     * Sets the SVG track on the temperature picker.
-     */
-    this.shadowRoot.getElementById('track').style.height = ((100 / 21) * (e.srcElement.value - 4)).toString() + '%';
-    const temp_string = e.srcElement.value.toString();
-    const temp_string_deg = e.srcElement.value.toString() + '&#176;';
-    if (e.srcElement.value - 4 > 0) {
-      this.shadowRoot.getElementById('popup').className = this.shadowRoot
-        .getElementById('popup')
-        .className.replace(/temp.*/g, '');
+    const value = e.target.value;
+    this.shadowRoot.getElementById('track').style.height = ((100 / 21) * (value - 4)).toString() + '%';
+    const temp_string = value.toString();
+    
+    // Update de kleuren en tekst direct
+    this.shadowRoot.getElementById('popup').className = this.shadowRoot
+      .getElementById('popup')
+      .className.replace(/temp.*/g, '');
+      
+    if (value - 4 > 0) {
       this.shadowRoot.getElementById('popup').classList.add('temp-' + temp_string);
-      this.shadowRoot.getElementById('target_temp_track').innerHTML = temp_string_deg;
-      this.temp_wanted = e.srcElement.value;
+      this.shadowRoot.getElementById('target_temp_track').innerHTML = temp_string + '&#176;';
+      this.temp_wanted = value;
     } else {
-      this.shadowRoot.getElementById('popup').className = this.shadowRoot
-        .getElementById('popup')
-        .className.replace(/temp.*/g, '');
       this.shadowRoot.getElementById('popup').classList.add('temp-off');
       this.shadowRoot.getElementById('target_temp_track').innerHTML = 'OFF';
-      this.temp_wanted = e.srcElement.value;
+      this.temp_wanted = value;
+    }
+  
+    // DIRECTE ACTIE: Als de gebruiker stopt met slepen (change event), stuur naar HA
+    if (e.type === 'change') {
+      this._setTemperature(this.temp_wanted);
     }
   }
 
